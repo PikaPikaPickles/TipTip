@@ -6,9 +6,16 @@ Generate::Generate(QObject *parent) : QObject(parent)
 }
 void Generate:: generation()
 {
-    for(int i=0; i<10; i++)
-    {
-        sleep(1);
-        emit  emitDATA((random()%100-0.1),(random()%100-0.1) );
+    while(true)
+        {
+            if(is_working){ // проверяем флажок
+        sleep(1);   // время на кастование одной пары чисел
+        emit  emitDATA((random()%100-0.1),(random()%100-0.1) );     //сигналим цифры в слот пуша и обновления
+        }
+        else{
+            //X_X.clear();
+            //Y_Y.clear();            //если флажок false (нажата кнопка паузы или стопа, останавливаем цикл
+            break;
+        }
     }
 }
