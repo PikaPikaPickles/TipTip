@@ -1,7 +1,7 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
-#include <thread>
-#include <chrono>
+#include <QThread>
+#include <unistd.h>
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -21,9 +21,10 @@ MainWindow::~MainWindow()
 }
 
 
-void MainWindow:: plot()
-{
-     ui->widget->graph(0)->setData(MainWindow::DataTread.Data_x,MainWindow::DataTread.Data_y);
+void MainWindow:: plot(double x, double y)
+{    XX.append(x);
+     YY.append(y);
+     ui->widget->graph(0)->setData(MainWindow::XX,MainWindow::YY);
      ui->widget->replot();
      ui->widget->update();
 }
@@ -32,24 +33,17 @@ void MainWindow:: plot()
 
 void MainWindow::on_StartButton_clicked()
 
-{   DataTread.GiveData();
-    terminated = 1;
-    plot();
-   /* for (int i=0;i< 1000 ;i++ )
-    {
-            DataTread.GiveData();
-            plot();
-        }*/
+{
+    pMyThread = new QThread;
+    pGen =new Generate;
+    pGen->moveToThread(pMyThread);
+    connect(pGen,SIGNAL(emitDATA(double , double )), this, SLOT(plot(double , double )));
+   // connect(pGen, &Generation:: emitData, this, &MainWindow::slotButton);
+    connect(pMyThread,SIGNAL(started()), pGen, SLOT(generation()));
+    pMyThread->start();
 }
-/*void MainWindow::plotting(){
-    while(true){
-    DataTread.GiveData();
-    }
-}*/
 void MainWindow::on_StopButton_clicked()
 {
-    DataTread.Data_x.clear();
-    DataTread.Data_y.clear();
-    plot();
-    terminated =0;
+
+
 }

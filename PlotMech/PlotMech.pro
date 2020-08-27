@@ -16,15 +16,15 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    generate.cpp \
     main.cpp \
     mainwindow.cpp \
-    qcustomplot.cpp \
-    randomthread.cpp
+    qcustomplot.cpp
 
 HEADERS += \
+    generate.h \
     mainwindow.h \
-    qcustomplot.h \
-    randomthread.h
+    qcustomplot.h
 
 FORMS += \
     mainwindow.ui

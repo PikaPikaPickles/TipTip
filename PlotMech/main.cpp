@@ -1,5 +1,4 @@
 #include "mainwindow.h"
-#include <randomthread.h>
 #include <QApplication>
 #include <thread>
 #include <unistd.h>

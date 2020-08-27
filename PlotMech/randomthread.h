@@ -10,12 +10,15 @@ class RandomThread : public QObject
 {
     Q_OBJECT
 public:
+    bool key = 0;
     explicit RandomThread(QObject *parent = nullptr);
     QVector <double> Data_x;
     QVector <double> Data_y;
-    void GiveData();
-    double Random_double();
 
+    double Random_double();
+public slots:
+    void GiveData();
+    void KeyFunc();
 signals:
 
 };
